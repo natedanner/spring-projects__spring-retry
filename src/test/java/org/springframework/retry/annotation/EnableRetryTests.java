@@ -134,10 +134,10 @@ public class EnableRetryTests {
 		service.service();
 		assertThat(service.getCount()).isEqualTo(3);
 		assertThat(service.getCause()).isExactlyInstanceOf(RuntimeException.class);
-		assertThatIllegalArgumentException().isThrownBy(() -> service.service());
+		assertThatIllegalArgumentException().isThrownBy(service::service);
 		assertThat(service.getCount()).isEqualTo(6);
 		assertThat(service.getCause()).isExactlyInstanceOf(RuntimeException.class);
-		assertThatIllegalStateException().isThrownBy(() -> service.service());
+		assertThatIllegalStateException().isThrownBy(service::service);
 		assertThat(service.getCount()).isEqualTo(7);
 		assertThat(service.getCause()).isExactlyInstanceOf(RuntimeException.class);
 		context.close();
@@ -174,7 +174,7 @@ public class EnableRetryTests {
 	public void excludes() {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class);
 		ExcludesService service = context.getBean(ExcludesService.class);
-		assertThatIllegalStateException().isThrownBy(() -> service.service());
+		assertThatIllegalStateException().isThrownBy(service::service);
 		assertThat(service.getCount()).isEqualTo(1);
 		context.close();
 	}
@@ -184,7 +184,7 @@ public class EnableRetryTests {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class);
 		ExcludesOnlyService service = context.getBean(ExcludesOnlyService.class);
 		service.setExceptionToThrow(new IllegalStateException());
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service);
 		assertThat(service.getCount()).isEqualTo(1);
 
 		service.setExceptionToThrow(new IllegalArgumentException());
@@ -257,7 +257,7 @@ public class EnableRetryTests {
 		ExpressionService service = context.getBean(ExpressionService.class);
 		service.service1();
 		assertThat(service.getCount()).isEqualTo(3);
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service2());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service2);
 		assertThat(service.getCount()).isEqualTo(4);
 		service.service3();
 		assertThat(service.getCount()).isEqualTo(9);
@@ -372,7 +372,7 @@ public class EnableRetryTests {
 				if (bean instanceof RecoverableService) {
 					Advised advised = (Advised) bean;
 					advised.addAdvice((MethodInterceptor) invocation -> {
-						if (invocation.getMethod().getName().equals("recover")) {
+						if ("recover".equals(invocation.getMethod().getName())) {
 							((RecoverableService) bean).setOtherAdviceCalled();
 						}
 						return invocation.proceed();
@@ -562,7 +562,7 @@ public class EnableRetryTests {
 
 	public static class RuntimeConfigs {
 
-		int count = 0;
+		int count;
 
 		public int getMaxAttempts() {
 			this.count++;
@@ -588,7 +588,7 @@ public class EnableRetryTests {
 
 	protected static class Service {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(RuntimeException.class)
 		public void service() {
@@ -605,7 +605,7 @@ public class EnableRetryTests {
 
 	protected static class MultiService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(retryFor = RuntimeException.class)
 		public void service() {
@@ -635,7 +635,7 @@ public class EnableRetryTests {
 
 	protected static class RecoverableService {
 
-		private int count = 0;
+		private int count;
 
 		private Throwable cause;
 
@@ -701,7 +701,7 @@ public class EnableRetryTests {
 	@Retryable(retryFor = RuntimeException.class)
 	protected static class RetryableService {
 
-		private int count = 0;
+		private int count;
 
 		public void service() {
 			if (this.count++ < 2) {
@@ -717,7 +717,7 @@ public class EnableRetryTests {
 
 	protected static class ExcludesService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(retryFor = RuntimeException.class, noRetryFor = IllegalStateException.class)
 		public void service() {
@@ -734,7 +734,7 @@ public class EnableRetryTests {
 
 	protected static class ExcludesOnlyService {
 
-		private int count = 0;
+		private int count;
 
 		private RuntimeException exceptionToThrow;
 
@@ -767,7 +767,7 @@ public class EnableRetryTests {
 
 	protected static class StatefulService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(stateful = true)
 		public void service(int value) {
@@ -784,7 +784,7 @@ public class EnableRetryTests {
 
 	static class InterceptableService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(interceptor = "retryInterceptor")
 		public void service() {
@@ -801,7 +801,7 @@ public class EnableRetryTests {
 
 	static class ExpressionService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(exceptionExpression = "message.contains('this can be retried')")
 		public void service1() {
@@ -886,7 +886,7 @@ public class EnableRetryTests {
 
 	public static class TheClass implements TheInterface {
 
-		private int count = 0;
+		private int count;
 
 		private boolean recovered;
 
@@ -972,7 +972,7 @@ public class EnableRetryTests {
 	@Retryable
 	public static class RetryableImplementation implements NotAnnotatedInterface {
 
-		private int count = 0;
+		private int count;
 
 		@Override
 		public void service1() {

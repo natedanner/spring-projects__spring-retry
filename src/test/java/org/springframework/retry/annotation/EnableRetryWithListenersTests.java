@@ -70,7 +70,7 @@ public class EnableRetryWithListenersTests {
 	@EnableRetry(proxyTargetClass = true)
 	protected static class TestConfiguration {
 
-		private int count = 0;
+		private int count;
 
 		@Bean
 		public Service service() {
@@ -94,9 +94,9 @@ public class EnableRetryWithListenersTests {
 	@EnableRetry(proxyTargetClass = true)
 	protected static class TestConfigurationMultipleListeners {
 
-		private int count1 = 0;
+		private int count1;
 
-		private int count2 = 0;
+		private int count2;
 
 		@Bean
 		public ServiceWithOverriddenListener service() {
@@ -131,7 +131,7 @@ public class EnableRetryWithListenersTests {
 	@EnableRetry(proxyTargetClass = true)
 	protected static class TestConfigurationExcludedListeners {
 
-		private int count = 0;
+		private int count;
 
 		@Bean
 		public ServiceWithExcludedListeners service() {
@@ -164,7 +164,7 @@ public class EnableRetryWithListenersTests {
 
 	protected static class Service {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000))
 		public void service() {
@@ -181,7 +181,7 @@ public class EnableRetryWithListenersTests {
 
 	protected static class ServiceWithOverriddenListener {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000), listeners = "listener1")
 		public void service() {
@@ -198,7 +198,7 @@ public class EnableRetryWithListenersTests {
 
 	protected static class ServiceWithExcludedListeners {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000), listeners = "")
 		public void service() {

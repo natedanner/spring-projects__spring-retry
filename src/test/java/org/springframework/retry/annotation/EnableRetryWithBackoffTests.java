@@ -149,7 +149,7 @@ public class EnableRetryWithBackoffTests {
 
 	protected static class Service {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000))
 		public void service() {
@@ -167,7 +167,7 @@ public class EnableRetryWithBackoffTests {
 	@Retryable(backoff = @Backoff(delay = 1000, maxDelay = 2000))
 	protected static class RandomService {
 
-		private int count = 0;
+		private int count;
 
 		public void service() {
 			if (count++ < 2) {
@@ -183,7 +183,7 @@ public class EnableRetryWithBackoffTests {
 
 	protected static class ExponentialService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000, maxDelay = 2000, multiplier = 1.1))
 		public void service() {
@@ -200,7 +200,7 @@ public class EnableRetryWithBackoffTests {
 
 	protected static class ExponentialRandomService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000, maxDelay = 2000, multiplier = 1.1, random = true))
 		public void service(int value) {
@@ -217,7 +217,7 @@ public class EnableRetryWithBackoffTests {
 
 	protected static class ExponentialRandomExpressionService {
 
-		private int count = 0;
+		private int count;
 
 		@Retryable(backoff = @Backoff(delay = 1000, maxDelay = 2000, multiplier = 1.1, randomExpression = "#{true}"))
 		public void service(int value) {

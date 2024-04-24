@@ -38,7 +38,7 @@ public class CompositeRetryPolicy implements RetryPolicy {
 
 	RetryPolicy[] policies = new RetryPolicy[0];
 
-	private boolean optimistic = false;
+	private boolean optimistic;
 
 	/**
 	 * Setter for optimistic.

@@ -138,7 +138,7 @@ public class StatefulRetryIntegrationTests {
 				}, context -> null, retryState);
 			}
 			catch (Exception e) {
-				assertThat(e.getMessage().equals("Fail")).isTrue();
+				assertThat("Fail".equals(e.getMessage())).isTrue();
 			}
 		}
 		assertThat(times).hasSize(3);
@@ -174,7 +174,7 @@ public class StatefulRetryIntegrationTests {
 	 */
 	private static final class MockRetryCallback implements RetryCallback<String, Exception> {
 
-		int attempts = 0;
+		int attempts;
 
 		RetryContext context;
 

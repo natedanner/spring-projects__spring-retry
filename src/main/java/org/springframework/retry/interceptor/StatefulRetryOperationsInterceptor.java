@@ -57,7 +57,7 @@ import org.springframework.util.StringUtils;
  */
 public class StatefulRetryOperationsInterceptor implements MethodInterceptor {
 
-	private transient final Log logger = LogFactory.getLog(getClass());
+	private final transient Log logger = LogFactory.getLog(getClass());
 
 	private MethodArgumentsKeyGenerator keyGenerator;
 

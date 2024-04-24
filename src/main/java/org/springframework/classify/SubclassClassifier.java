@@ -149,7 +149,7 @@ public class SubclassClassifier<T, C> implements Classifier<T, C> {
 	 * Return the default value supplied in the constructor (default false).
 	 * @return C the default value
 	 */
-	final public C getDefault() {
+	public final C getDefault() {
 		return this.defaultValue;
 	}
 

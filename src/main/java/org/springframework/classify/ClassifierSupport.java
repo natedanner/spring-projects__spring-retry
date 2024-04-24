@@ -27,7 +27,7 @@ package org.springframework.classify;
 @SuppressWarnings("serial")
 public class ClassifierSupport<C, T> implements Classifier<C, T> {
 
-	final private T defaultValue;
+	private final T defaultValue;
 
 	/**
 	 * @param defaultValue the default value

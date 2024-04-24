@@ -42,7 +42,7 @@ public class StatefulRecoveryRetryTests {
 
 	private final RetryTemplate retryTemplate = new RetryTemplate();
 
-	private int count = 0;
+	private int count;
 
 	private final List<String> list = new ArrayList<>();
 

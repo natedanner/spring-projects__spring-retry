@@ -28,7 +28,7 @@ public class RetryContextSupport extends AttributeAccessorSupport implements Ret
 
 	private final RetryContext parent;
 
-	private volatile boolean terminate = false;
+	private volatile boolean terminate;
 
 	private volatile int count;
 
@@ -73,8 +73,9 @@ public class RetryContextSupport extends AttributeAccessorSupport implements Ret
 	 */
 	public void registerThrowable(Throwable throwable) {
 		this.lastException = throwable;
-		if (throwable != null)
+		if (throwable != null) {
 			count++;
+		}
 	}
 
 	@Override

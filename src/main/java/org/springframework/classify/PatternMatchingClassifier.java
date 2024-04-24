@@ -67,8 +67,7 @@ public class PatternMatchingClassifier<T> implements Classifier<String, T> {
 	 */
 	@Override
 	public T classify(String classifiable) {
-		T value = this.values.match(classifiable);
-		return value;
+		return this.values.match(classifiable);
 	}
 
 }

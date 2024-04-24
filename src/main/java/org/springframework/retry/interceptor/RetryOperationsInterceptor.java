@@ -107,7 +107,7 @@ public class RetryOperationsInterceptor implements MethodInterceptor {
 
 		};
 
-		RecoveryCallback<Object> recoveryCallback = (this.recoverer != null)
+		RecoveryCallback<Object> recoveryCallback = this.recoverer != null
 				? new ItemRecovererCallback(invocation.getArguments(), this.recoverer) : null;
 		try {
 			return this.retryOperations.execute(retryCallback, recoveryCallback);

@@ -48,9 +48,9 @@ public class BinaryExceptionClassifierBuilder {
 	 * Building notation type (white list or black list) - null: has not selected yet -
 	 * true: white list - false: black list
 	 */
-	private Boolean isWhiteList = null;
+	private Boolean isWhiteList;
 
-	private boolean traverseCauses = false;
+	private boolean traverseCauses;
 
 	private final List<Class<? extends Throwable>> exceptionClasses = new ArrayList<>();
 

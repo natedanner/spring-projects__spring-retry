@@ -288,7 +288,6 @@ public class RecoverAnnotationRecoveryHandler<T> implements MethodInvocationReco
 		}
 		if (filteredMethods.size() > 0) {
 			this.methods.clear();
-			;
 			this.methods.putAll(filteredMethods);
 		}
 	}

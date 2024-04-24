@@ -318,7 +318,7 @@ public class RetryTemplate implements RetryOperations {
 			}
 
 			Object label = retryCallback.getLabel();
-			String labelMessage = (label != null) ? "; for: '" + label + "'" : "";
+			String labelMessage = label != null ? "; for: '" + label + "'" : "";
 
 			/*
 			 * We allow the whole loop to be skipped if the policy or context already

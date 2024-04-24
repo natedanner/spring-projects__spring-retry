@@ -27,11 +27,11 @@ import org.springframework.retry.RetryState;
  */
 public class DefaultRetryState implements RetryState {
 
-	final private Object key;
+	private final Object key;
 
-	final private boolean forceRefresh;
+	private final boolean forceRefresh;
 
-	final private Classifier<? super Throwable, Boolean> rollbackClassifier;
+	private final Classifier<? super Throwable, Boolean> rollbackClassifier;
 
 	/**
 	 * Create a {@link DefaultRetryState} representing the state for a new retry attempt.

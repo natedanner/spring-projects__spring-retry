@@ -70,7 +70,7 @@ import java.util.function.Supplier;
  * @author Tomaz Fernandes
  * @since 1.3.3
  */
-public class BackOffPolicyBuilder {
+public final class BackOffPolicyBuilder {
 
 	private static final long DEFAULT_INITIAL_DELAY = 1000L;
 

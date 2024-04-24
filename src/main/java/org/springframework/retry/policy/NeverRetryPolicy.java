@@ -81,7 +81,7 @@ public class NeverRetryPolicy implements RetryPolicy {
 	 */
 	private static class NeverRetryContext extends RetryContextSupport {
 
-		private boolean finished = false;
+		private boolean finished;
 
 		public NeverRetryContext(RetryContext parent) {
 			super(parent);

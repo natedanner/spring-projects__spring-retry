@@ -97,7 +97,7 @@ public class ExceptionClassifierRetryPolicyTests {
 
 	}
 
-	int count = 0;
+	int count;
 
 	@SuppressWarnings("serial")
 	@Test

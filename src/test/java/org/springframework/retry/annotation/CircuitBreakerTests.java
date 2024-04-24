@@ -50,14 +50,14 @@ public class CircuitBreakerTests {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TestConfiguration.class);
 		Service service = context.getBean(Service.class);
 		assertThat(AopUtils.isAopProxy(service)).isTrue();
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service);
 		assertThat((Boolean) service.getContext().getAttribute(CircuitBreakerRetryPolicy.CIRCUIT_OPEN)).isFalse();
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service);
 		assertThat((Boolean) service.getContext().getAttribute(CircuitBreakerRetryPolicy.CIRCUIT_OPEN)).isFalse();
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service);
 		assertThat((Boolean) service.getContext().getAttribute(CircuitBreakerRetryPolicy.CIRCUIT_OPEN)).isTrue();
 		assertThat(service.getCount()).isEqualTo(3);
-		assertThatExceptionOfType(Exception.class).isThrownBy(() -> service.service());
+		assertThatExceptionOfType(Exception.class).isThrownBy(service::service);
 		// Not called again once circuit is open
 		assertThat(service.getCount()).isEqualTo(3);
 		service.expressionService();
@@ -162,7 +162,7 @@ public class CircuitBreakerTests {
 
 	protected static class ServiceImpl implements Service {
 
-		int count = 0;
+		int count;
 
 		RetryContext context;
 

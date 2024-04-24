@@ -39,7 +39,7 @@ public class MaxAttemptsRetryPolicy implements RetryPolicy {
 	/**
 	 * The default limit to the number of attempts for a new policy.
 	 */
-	public final static int DEFAULT_MAX_ATTEMPTS = 3;
+	public static final int DEFAULT_MAX_ATTEMPTS = 3;
 
 	private volatile int maxAttempts;
 

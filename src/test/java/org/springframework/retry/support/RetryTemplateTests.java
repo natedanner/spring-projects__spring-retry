@@ -57,7 +57,7 @@ public class RetryTemplateTests {
 
 	RetryContext context;
 
-	int count = 0;
+	int count;
 
 	@Test
 	public void testSuccessfulRetry() throws Throwable {
@@ -329,7 +329,7 @@ public class RetryTemplateTests {
 		});
 		AtomicBoolean first = new AtomicBoolean(true);
 		AtomicInteger callCount = new AtomicInteger();
-		template.execute((ctx) -> {
+		template.execute(ctx -> {
 			callCount.incrementAndGet();
 			return first.getAndSet(false) ? "bad" : "good";
 		});

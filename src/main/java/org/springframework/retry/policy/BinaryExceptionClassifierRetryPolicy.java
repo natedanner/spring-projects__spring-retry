@@ -53,7 +53,7 @@ public class BinaryExceptionClassifierRetryPolicy implements RetryPolicy {
 
 	@Override
 	public void registerThrowable(RetryContext context, Throwable throwable) {
-		RetryContextSupport simpleContext = ((RetryContextSupport) context);
+		RetryContextSupport simpleContext = (RetryContextSupport) context;
 		simpleContext.registerThrowable(throwable);
 	}
 

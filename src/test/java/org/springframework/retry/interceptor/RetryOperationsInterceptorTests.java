@@ -259,7 +259,7 @@ public class RetryOperationsInterceptorTests {
 
 	public static class ServiceImpl implements Service {
 
-		private boolean enteredTransaction = false;
+		private boolean enteredTransaction;
 
 		@Override
 		public void service() throws Exception {
